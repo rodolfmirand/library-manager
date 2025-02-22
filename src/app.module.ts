@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PersonModule } from './module/person.module';
 
 @Module({
-    imports: [TypeOrmModule.forRoot({
+    imports: [PersonModule, TypeOrmModule.forRoot({
         "database": "./database.sql",
         "type": "sqlite",
         "synchronize": true,
