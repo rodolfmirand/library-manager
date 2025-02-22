@@ -8,7 +8,7 @@ export class Review {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column()
+    @ManyToOne(() => Person, person => person.reviews)
     author: Person
 
     @Column()
