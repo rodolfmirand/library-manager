@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Book } from "./book.model";
+import { Review } from "./review.model";
 
 @Entity()
 export class Person {
@@ -19,4 +20,7 @@ export class Person {
 
     @ManyToMany(() => Book)
     exchangedBooks: Book[]
+
+    @OneToMany(() => Review, review => review.author)
+    reviews: Review[]
 }
