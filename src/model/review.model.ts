@@ -8,12 +8,12 @@ export class Review {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @ManyToOne(() => Person, person => person.reviews)
+    @ManyToOne(() => Person, person => person.reviews, { cascade: true })
     author: Person
 
     @Column()
     text: string
 
-    @ManyToOne(() => Book, book => book.reviews)
+    @ManyToOne(() => Book, book => book.reviews, { cascade: true })
     book: Book
 }
