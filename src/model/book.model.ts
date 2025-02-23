@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ConservationStatus } from "./enum/conservation-status.enum";
 import { Review } from './review.model';
+import { Exchanges } from "./exchanges.model";
 
 @Entity()
 export class Book {
@@ -22,4 +23,10 @@ export class Book {
 
     @OneToMany(() => Review, review => review.book)
     reviews: Review[]
+
+    @Column({ default: true })
+    isAvaliable: boolean
+
+    @OneToMany(() => Exchanges, exchanges => exchanges.book)
+    exchanges: Exchanges[]
 }
