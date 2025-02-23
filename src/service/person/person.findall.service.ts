@@ -9,6 +9,12 @@ export class PersonFindAllService {
     constructor(@InjectRepository(Person) private model: Repository<Person>) { }
 
     public async findAll(): Promise<Person[]> {
-        return await this.model.find()
+        const people = await this.model.find({ relations: ['booksForExchange', 'exchangedBooks'] })
+
+        people.forEach(person => {
+            person.booksForExchange = person.booksForExchange.filter(book => book.isAvailable)
+        })
+
+        return people
     }
 }
