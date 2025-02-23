@@ -1,7 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Book } from "./book.model";
 import { Review } from "./review.model";
-import { Exchanges } from './exchanges.model';
+import { Exchange } from './exchange.model';
 
 @Entity()
 export class Person {
@@ -9,22 +9,28 @@ export class Person {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column()
+    @Column({ unique: true })
     name: string
+
+    @Column()
+    email: string
 
     @Column()
     password: string
 
     @ManyToMany(() => Book)
+    @JoinTable()
     exchangedBooks: Book[]
+
+    @OneToMany(() => Book, book => book.owner)
+    booksForExchange: Book[]
 
     @OneToMany(() => Review, review => review.author)
     reviews: Review[]
 
-    @OneToMany(() => Exchanges, exchanges => exchanges.receiver)
-    donations: Exchanges[]
+    @OneToMany(() => Exchange, exchanges => exchanges.receiver)
+    donations: Exchange[]
 
-    
-    @OneToMany(() => Exchanges, exchanges => exchanges.donor)
-    receipts: Exchanges[]
+    @OneToMany(() => Exchange, exchanges => exchanges.donor)
+    receipts: Exchange[]
 }
