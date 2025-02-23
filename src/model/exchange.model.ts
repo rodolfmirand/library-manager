@@ -1,9 +1,9 @@
-import { Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Book } from "./book.model";
 import { Person } from "./person.model";
 
 @Entity()
-export class Exchanges {
+export class Exchange {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -16,4 +16,7 @@ export class Exchanges {
 
     @ManyToOne(() => Person, person => person.receipts)
     receiver: Person
+
+    @CreateDateColumn({ type: 'datetime' })
+    date: Date
 }
