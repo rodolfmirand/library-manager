@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Param, ParseUUIDPipe, Post } from "@nestjs/common";
 import { BookRequest } from "src/dto/book.request";
 import { BookCreateService } from "src/service/book/book.create.service";
 
@@ -7,8 +7,8 @@ export class BookCreateController {
 
     constructor(private readonly service: BookCreateService) { }
 
-    @Post()
-    public async create(@Body() bookRequest: BookRequest): Promise<any> {
-        return this.service.create(bookRequest)
+    @Post(':id')
+    public async create(@Param('id', new ParseUUIDPipe()) idPerson: string, @Body() bookRequest: BookRequest): Promise<any> {
+        return this.service.create(idPerson, bookRequest)
     }
 }
