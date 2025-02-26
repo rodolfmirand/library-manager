@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Person } from "src/model/person.model";
 import { Repository } from "typeorm";
@@ -11,6 +11,6 @@ export class PersonCreateService {
 
     public async create(personRequest: PersonRequest): Promise<any> {
         await this.model.save(personRequest)
-        return { status: 'Person created successfully!' }
+        return { status: 'Person registered successfully.' }
     }
 }

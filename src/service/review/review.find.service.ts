@@ -11,9 +11,9 @@ export class ReviewFindService {
     public async find(idBook: string): Promise<any> {
         const reviews = await this.reviewRepository.find({ where: { book: { id: idBook } }, relations: ['book'] })
 
-        if (!reviews) {
+        if (!reviews)
             throw new NotFoundException('Book not found.')
-        }
+
 
         return reviews
     }

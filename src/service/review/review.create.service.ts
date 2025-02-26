@@ -14,7 +14,7 @@ export class ReviewCreateService {
         @InjectRepository(Person) private personRepository: Repository<Person>,
     ) { }
 
-    public async create(reviewRequest: ReviewRequest): Promise<Review> {
+    public async create(reviewRequest: ReviewRequest): Promise<any> {
         const { authorId, bookId, text } = reviewRequest;
 
         const author = await this.personRepository.findOne({
@@ -36,6 +36,7 @@ export class ReviewCreateService {
             text
         });
 
-        return await this.reviewRepository.save(review);
+        await this.reviewRepository.save(review);
+        return { status: 'Review registered successfully.' }
     }
 }
