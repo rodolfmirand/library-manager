@@ -9,6 +9,11 @@ export class BookFindAllService {
     constructor(@InjectRepository(Book) private model: Repository<Book>) { }
 
     public async find(): Promise<Book[]> {
-        return await this.model.find()
+        return await this.model.find({
+            relations: ['owner'],
+            select: {
+                owner: { name: true }
+            }
+        })
     }
 }
