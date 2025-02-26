@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonModule } from './module/person.module';
 import { BookModule } from './module/book.module';
 import { ExchangeModule } from './module/exchange.module';
+import { AuthModule } from './module/auth.module';
 
 @Module({
-    imports: [PersonModule, BookModule, ExchangeModule, TypeOrmModule.forRoot({
+    imports: [PersonModule, BookModule, ExchangeModule, AuthModule, TypeOrmModule.forRoot({
         "database": "./database.sql",
         "type": "sqlite",
         "synchronize": true,
