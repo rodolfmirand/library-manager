@@ -35,7 +35,7 @@ export class ReviewCreateService {
             book,
             text
         });
+
         return await this.reviewRepository.save(review);
     }
-
 }
