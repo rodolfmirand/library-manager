@@ -7,10 +7,12 @@ import { Book } from "src/model/book.model";
 import { ReviewCreateService } from "src/service/review/review.create.service";
 import { ReviewFindAllService } from "src/service/review/review.findall.service";
 import { Person } from "src/model/person.model";
+import { ReviewFindController } from "src/controller/review/review.find.controller";
+import { ReviewFindService } from "src/service/review/review.find.service";
 
 @Module({
     imports: [TypeOrmModule.forFeature([Review, Book, Person])],
-    controllers: [ReviewCreateController, ReviewFindAllController],
-    providers: [ReviewCreateService, ReviewFindAllService]
+    controllers: [ReviewCreateController, ReviewFindAllController, ReviewFindController],
+    providers: [ReviewCreateService, ReviewFindAllService, ReviewFindService]
 })
-export class ReviewModule {}
+export class ReviewModule { }
