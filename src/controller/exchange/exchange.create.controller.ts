@@ -10,10 +10,12 @@ export class ExchangeCreateController {
     @Post()
     public async create(@Body() exchangeRequest: ExchangeRequest): Promise<any> {
         try {
-            this.service.create(exchangeRequest)
-            return { status: "Exchange carried out successfully." }
+            return await this.service.create(exchangeRequest)
         } catch (error) {
-            throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+            if (error instanceof HttpException) 
+                throw error
+            
+            throw new HttpException('Error registering exchange.', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

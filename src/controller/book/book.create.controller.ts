@@ -1,4 +1,4 @@
-import { Body, Controller, Param, ParseUUIDPipe, Post } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Param, ParseUUIDPipe, Post } from "@nestjs/common";
 import { BookRequest } from "src/dto/book.request";
 import { BookCreateService } from "src/service/book/book.create.service";
 
@@ -9,6 +9,13 @@ export class BookCreateController {
 
     @Post(':id')
     public async create(@Param('id', new ParseUUIDPipe()) idPerson: string, @Body() bookRequest: BookRequest): Promise<any> {
-        return this.service.create(idPerson, bookRequest)
+        try {
+            return await this.service.create(idPerson, bookRequest)
+        } catch (error) {
+            if (error instanceof HttpException) 
+                throw error
+            
+            throw new HttpException('Error registering book.', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 }

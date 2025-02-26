@@ -10,10 +10,12 @@ export class ReviewCreateController {
     @Post()
     public async create(@Body() body: ReviewRequest): Promise<any> {
         try {
-            this.service.create(body);
-            return { status: 'Review created successfully!' };
+            return await this.service.create(body);
         } catch (error) {
-            throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+            if (error instanceof HttpException)
+                throw error
+
+            throw new HttpException('Error registering review.', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }
