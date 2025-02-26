@@ -12,7 +12,10 @@ export class BookFindAllService {
         return await this.model.find({
             relations: ['owner'],
             select: {
-                owner: { name: true }
+                owner: {
+                    id: true,
+                    name: true
+                }
             }
         })
     }
