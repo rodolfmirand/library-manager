@@ -1,5 +1,5 @@
 export class ReviewRequest {
-    authorId: string
+    idAuthor: string
     text: string
-    bookId: string
+    idBook: string
 }
