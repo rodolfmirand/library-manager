@@ -15,17 +15,17 @@ export class ReviewCreateService {
     ) { }
 
     public async create(reviewRequest: ReviewRequest): Promise<any> {
-        const { authorId, bookId, text } = reviewRequest;
+        const { idAuthor, idBook, text } = reviewRequest;
 
         const author = await this.personRepository.findOne({
-            where: { id: authorId },
+            where: { id: idAuthor },
             relations: ['exchangedBooks']
         });
         if (!author) {
             throw new NotFoundException('Author not found');
         }
 
-        const book = author.exchangedBooks.find(b => b.id === bookId);
+        const book = author.exchangedBooks.find(b => b.id === idBook);
         if (!book) {
             throw new NotFoundException('Book not found in exchanged books');
         }
