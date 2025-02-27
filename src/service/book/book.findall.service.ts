@@ -10,6 +10,7 @@ export class BookFindAllService {
 
     public async find(): Promise<Book[]> {
         return await this.model.find({
+            where: { isAvailable: true },
             relations: ['owner'],
             select: {
                 owner: {
